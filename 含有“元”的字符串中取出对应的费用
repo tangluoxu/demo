@@ -1,0 +1,11 @@
+    String a = "奥尔良鸡腿套餐（18.7元/份）";
+		int lastPosition = a.indexOf("元");
+		int beginPosition = 0;
+		for(int i=lastPosition-1;i>0;i--){
+			  //46是小数点"."的ASCII码，字符转化为byte类型后对应的就是他的ASCII码
+			  if(!Character.isDigit(a.charAt(i))&&!((byte)a.charAt(i)==46)){
+				  beginPosition = i+1;
+				  break;
+			  }
+		}
+		System.out.println("此套餐费用为:" + a.substring(beginPosition,lastPosition)+"元");
