@@ -5,6 +5,8 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import org.csource.common.IniFileReader;
 import org.csource.common.NameValuePair;
@@ -31,6 +33,24 @@ public class FastDFSClient {
 			conf = conf.replace("classpath:", this.getClass().getResource("/").getPath());
 		}
 		ClientGlobal.init(conf);
+		trackerClient = new TrackerClient();
+		trackerServer = trackerClient.getConnection();
+		storageServer = null;
+		storageClient = new StorageClient1(trackerServer, storageServer);
+	}
+
+	/*
+		linux打成jar包读不到conf配置文件参数时，使用properties文件配置参数，并用此方法上传
+	 */
+	public FastDFSClient() throws Exception {
+		Properties properties = new Properties();
+		// 使用ClassLoader加载properties配置文件生成对应的输入流
+		InputStream in = new ClassPathResource("fdfs_client.properties").getInputStream();
+		//InputStream in = FastDFSClient.class.getResourceAsStream("fdfs_client.properties");
+		// 使用properties对象加载输入流
+		properties.load(in);
+
+		ClientGlobal.initByProperties(properties);
 		trackerClient = new TrackerClient();
 		trackerServer = trackerClient.getConnection();
 		storageServer = null;
@@ -181,10 +201,12 @@ public class FastDFSClient {
 	public static void main(String[] args) {
 
 		try {
-			ClassPathResource cpr = new ClassPathResource("fdfs_client.conf");
-			//ClientGlobal.init(cpr.getClassLoader().getResource("fdfs_client.conf").getPath());
-			//FastDFSClient client = new FastDFSClient("src\\main\\resources\\fdfs_client.conf");
-			FastDFSClient client = new FastDFSClient(cpr.getClassLoader().getResource("fdfs_client.conf").getPath());
+//			ClassPathResource cpr = new ClassPathResource("fdfs_client.conf");
+//			ClientGlobal.init(cpr.getClassLoader().getResource("fdfs_client.conf").getPath());
+//			//FastDFSClient client = new FastDFSClient("src\\main\\resources\\fdfs_client.conf");
+//			FastDFSClient client = new FastDFSClient(cpr.getClassLoader().getResource("fdfs_client.conf").getPath());
+
+			FastDFSClient client = new FastDFSClient();
 			String uploadFile = client.uploadFile("D:/动漫图片/74c4864bc5eb9d46.jpg", "jpg");
 
 //			for(int i=0; i<20; i++) {
