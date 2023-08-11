@@ -1,4 +1,4 @@
-package com.eshore.hb.btsp114busiservice.product.util;
+
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
