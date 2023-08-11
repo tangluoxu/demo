@@ -1,4 +1,4 @@
-package com.eshore.hb.btsp114busiservice.product.util;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
