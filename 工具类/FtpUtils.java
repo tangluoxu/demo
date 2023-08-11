@@ -1,4 +1,4 @@
-package com.eshore.hb.btsp114busiservice.product.util;
+
 import java.io.InputStream;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
