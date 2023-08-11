@@ -1,4 +1,4 @@
-package com.eshore.hb.btsp114busiservice.product.util;
+
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
